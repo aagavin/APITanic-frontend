@@ -1,0 +1,66 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Movie Info</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <h2>{{movie.title}}</h2>
+      <p>Release date: {{movie.release_date | date:'mediumDate' }}</p>
+    </ion-item>
+
+    <img src="{{movie.poster_url}}">
+
+    <ion-card-content>
+      <p>{{movie.plot_outline}}</p>
+    </ion-card-content>
+
+
+    <!-- *ngFor="let director of movie.directors_summary" *ngIf="movie.directors_summary > 0" -->
+    <ion-item *ngIf="movie.directors_summary">
+      <ion-icon name="videocam" item-left large></ion-icon>
+      <h2>Director(s)</h2>
+      <p text-wrap>
+        <span *ngFor="let director of movie.directors_summary">{{director.name}},</span>
+      </p>
+    </ion-item>
+
+    <ion-item *ngIf="movie.writers_summary">
+      <ion-icon name="videocam" item-left large></ion-icon>
+      <h2>Writer(s)</h2>
+      <p text-wrap>
+        <span *ngFor="let writer of movie.writers_summary">{{writer.name}}, </span>
+      </p>
+    </ion-item>
+
+    <!-- {{movie.genres}} -->
+    <ion-item>
+        <ion-icon name="film" item-left large></ion-icon>
+        <h2>Genres</h2>
+        <p text-wrap>
+          <span *ngFor="let genre of movie.genres">{{genre}}, </span>
+        </p>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="star"></ion-icon>
+          <span>{{movie.rating}}</span>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <button ion-button icon-left clear small>
+          <ion-icon name="time"></ion-icon>
+          <div>runtime: {{movie.runtime / 60}} min</div>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+</ion-content>
