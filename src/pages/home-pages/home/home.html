@@ -13,8 +13,8 @@
 <ion-content>
   <!-- *ngIf="movie.object.type == 'feature'" -->
   <ion-list>
-    <div *ngFor="let movie of popularMovies">
-      <button ion-item *ngIf="movie.object.type == 'feature'">
+    <div *ngFor="let movie of popularMovies; let i = index">
+      <button ion-item *ngIf="movie.object.type == 'feature'" (click)="movieClick(movie.object.tconst)">
         <ion-avatar item-start>
           <img src="{{movie.object.image.url | imagesize: '75'}}">
         </ion-avatar>

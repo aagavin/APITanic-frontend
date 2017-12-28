@@ -1,4 +1,4 @@
-import { ImdbProvider } from '../../providers/imdb/imdb';
+import { ImdbProvider } from '../../../providers/imdb/imdb';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -14,21 +14,25 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _imdbProvider:ImdbProvider
+    private _imdbProvider: ImdbProvider
   ) {
     this._imdbProvider.getMostPopularMovies().subscribe(
       data => {
         this.popularMovies = data['data']['movies'];
       },
       err => console.log(err),
-      ()=> console.log('done loading popular movies')
-            
+      () => console.log('done loading popular movies')
+
     );
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+  }
+
+  public movieClick(imdbid: number):void{
+    this.navCtrl.push('MovieInfoPage', {'imdbid': imdbid});
   }
 
 }
