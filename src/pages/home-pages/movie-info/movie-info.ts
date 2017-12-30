@@ -9,19 +9,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MovieInfoPage {
 
-  public movie: any;
+  public movie: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private _imdbProvider: ImdbProvider) {
-    this.movie = {};
+    
+    let imdbid = this.navParams.get('imdbid');
+    // let movie = this._imdbProvider.getMovieById(imdbid).subscribe()
+    this._imdbProvider.getMovieById(imdbid).subscribe(
+      response => { this.movie = response['data']['movie'];},
+      err => {console.log(err); this.navCtrl.setRoot('HomePage')},
+      () => {console.log(this.movie)}
+    );
+
   }
 
   ionViewDidLoad() {
-    let imdbid = this.navParams.get('imdbid');
-    this._imdbProvider.getMovieById(imdbid).subscribe(
-      data => { this.movie = data['data']; console.log(data['data']) },
-      err => console.log(err),
-      () => console.log('done loading movie with id: '+imdbid)
-    );
 
   }
 

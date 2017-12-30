@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalsProvider {
 
-  public static readonly BASEURL:string = 'https://apitanic.herokuapp.com/';
+  public static readonly BASEURL:string = 'https://aaronfernandescc-eval-prod.apigee.net';
   
   constructor() { console.log('Hello GlobalsProvider Provider'); }
 

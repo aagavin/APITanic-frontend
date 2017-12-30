@@ -16,7 +16,7 @@ export class ImdbProvider {
   }
 
   public getMovieById(imdbid: string): Observable<object>{
-    let url = `${GlobalsProvider.BASEURL}/imdb/getTitleById?id=${imdbid}`;
+    let url = `${GlobalsProvider.BASEURL}/imdb/title/${imdbid}`;
     console.log(url);
     
     return this._http.get(url);
