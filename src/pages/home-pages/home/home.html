@@ -14,14 +14,13 @@
   <!-- *ngIf="movie.object.type == 'feature'" -->
   <ion-list>
     <div *ngFor="let movie of popularMovies; let i = index">
-      <button ion-item *ngIf="movie.object.type == 'feature'" (click)="movieClick(movie.object.tconst)">
+      <button ion-item (click)="movieClick(movie.imdbid)">
         <ion-avatar item-start>
-          <img src="{{movie.object.image.url | imagesize: '75'}}">
+          <img src="{{movie.poster_url | imagesize: '75'}}">
         </ion-avatar>
-        <h2 text-wrap>{{movie.object.title}}</h2>
-        <p>
-          <span text-wrap *ngFor="let principal of movie.object.principals" >{{principal.name}}, </span>
-        </p>
+        <h2 text-wrap>{{movie.title}}</h2>
+        <p text-wrap>{{movie.people}}</p>
+        <p><ion-icon name="star"></ion-icon>&nbsp;rating: {{movie.rating}}</p>
       </button>
     </div>
   </ion-list>
