@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Search</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="search($event)"></ion-searchbar>
+
+  <ion-list>
+    <div *ngFor="let m of searchResults">
+      <button ion-item (click)="movieClick(m['id'])">
+        <ion-avatar item-start>
+          <img src="{{m['i'][0] | imagesize: '75'}}">
+        </ion-avatar>
+        <h2 text-wrap>{{m['l']}}</h2>
+        <p text-wrap>{{m['s']}}</p>
+      </button>
+    </div>
+  </ion-list>
+</ion-content>
