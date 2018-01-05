@@ -29,10 +29,14 @@ export class SigninPage {
     console.log('ionViewDidLoad SigninPage');
   }
 
+  public createAccountPage(){
+    this.navCtrl.setRoot('SingupPage');
+  }
+
 
   public onSubmit(){
     console.log(this.signInFrom.value);
-    this._userProvider.signIn(this.signInFrom.value.email, this.signInFrom.value.password);
+    this._userProvider.signIn(this.signInFrom.value.email, this.signInFrom.value.password)
   }
 
 }
