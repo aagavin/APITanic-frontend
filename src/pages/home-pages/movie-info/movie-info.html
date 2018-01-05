@@ -1,6 +1,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Movie Info</ion-title>
   </ion-navbar>
 
@@ -50,8 +53,7 @@
       <ion-col>
         <button ion-button icon-left clear small>
           <ion-icon name="star"></ion-icon>
-          <span *ngFor="let r of movie.Ratings; let i = index;"><div *ngIf="i==0">{{r.Value}}</div></span>
-          <!-- <span>{{movie.Ratings}}</span> -->
+          <span *ngFor="let r of movie.Ratings; let i = index;"><div *ngIf="i==0">{{r.Value}} <div *ngIf="r.Source == 'Rotten Tomatoes'">(RT)</div> </div></span>
         </button>
       </ion-col>
       <ion-col center text-center>
