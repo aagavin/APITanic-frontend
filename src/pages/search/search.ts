@@ -26,9 +26,11 @@ export class SearchPage {
   }
 
   public search(event: Event){
-    this._imdbProvider.getImdbSearch(this.searchQuery).subscribe(
-      data => {console.log(data); this.searchResults = data['data']}
-    );
+    if (this.searchQuery.length > 2) {
+      this._imdbProvider.getImdbSearch(this.searchQuery).subscribe(
+        data => this.searchResults = data['data']
+      );      
+    }
   }
 
   public movieClick(imdbid: string) {
