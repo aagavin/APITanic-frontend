@@ -10,11 +10,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  public isLoggedIn;
+
   rootPage: string = 'HomePage';
 
   pages: Array<{ title: string, component: any, icon: string}>;
+  signPages: Array<{ title: string, component: any, icon: string}>;
+  loggedInPages: Array<{ title: string, component: any, icon: string}>;
   signInPage = { title: 'Sign In', component: 'SigninPage', icon: 'log-in'};
   signOutPage = { title: 'Sign Out', component: '', icon: 'log-in'};
+  favouritePage = {title: 'Favourite', component: 'FavouritesPage', icon: 'bookmark'};
 
   constructor(
     public platform: Platform,
@@ -28,18 +33,22 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: 'HomePage', icon: 'home'},
       { title: 'Search', component: 'SearchPage', icon: 'search'},
-      this.signInPage
     ];
+
+    this.loggedInPages = [
+      {title: 'Favourites', component: 'FavouritesPage', icon: 'bookmark' }
+    ];
+    this.signPages = [this.signInPage]
 
 
     this._userProvider.$isLoggedIn.subscribe(isLoggedIn => {
-      //this.loggedIn = isLoggedIn; console.log('login state chagned to '+ isLoggedIn)
-      //{ title: 'Sign Out', component: '', icon: 'log-in'},
+      
+      this.isLoggedIn = isLoggedIn;
 
       if (isLoggedIn) {
-        this.pages[this.pages.length -1 ] = this.signOutPage;
+        this.signPages[0] = this.signOutPage;
       } else {
-        this.pages[this.pages.length -1 ] = this.signInPage;
+        this.signPages[0] = this.signInPage;
       }
     });
 

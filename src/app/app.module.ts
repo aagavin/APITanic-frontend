@@ -23,7 +23,6 @@ export const firebaseConfig = {
   projectId: "apitanic",
   storageBucket: "apitanic.appspot.com",
   messagingSenderId: "101506857808"
-
 }
 
 @NgModule({

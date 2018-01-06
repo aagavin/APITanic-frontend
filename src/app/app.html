@@ -7,7 +7,21 @@
 
   <ion-content>
     <ion-list>
+      <ion-list-header>Main</ion-list-header>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
+      </button>
+    </ion-list>
+
+    <ion-list *ngIf="isLoggedIn">
+      <ion-list-header>User Actions</ion-list-header>
+      <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)">
+        <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
+      </button>
+    </ion-list>
+
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of signPages" (click)="openPage(p)">
         <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
       </button>
     </ion-list>
