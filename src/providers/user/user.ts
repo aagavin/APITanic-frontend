@@ -23,7 +23,8 @@ export class UserProvider {
     this.isLoggedIn.next(false);
     this._afAuth.authState.subscribe(async (user: firebase.User) =>{
       try {
-        this.token = await user.getToken();
+        this.token = await user.getIdToken();
+        console.log(this.token);
         this.isLoggedIn.next(true);
       }
       catch (e) {
