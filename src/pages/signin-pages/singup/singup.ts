@@ -50,4 +50,8 @@ export class SingupPage {
     .catch(err => console.log(err))
   }
 
+  public signInPage(){
+    this.navCtrl.setRoot('SigninPage');
+  }
+
 }

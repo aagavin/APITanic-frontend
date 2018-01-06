@@ -34,9 +34,11 @@ export class SigninPage {
   }
 
 
-  public onSubmit(){
+  public async onSubmit(){
     console.log(this.signInFrom.value);
-    this._userProvider.signIn(this.signInFrom.value.email, this.signInFrom.value.password)
+    await this._userProvider.signIn(this.signInFrom.value.email, this.signInFrom.value.password);
+    this.navCtrl.setRoot('HomePage');
+
   }
 
 }
