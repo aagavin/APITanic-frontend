@@ -1,6 +1,7 @@
-import { ImdbProvider } from '../../../providers/imdb/imdb';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { UserProvider } from '../../../providers/user/user';
+import { ImdbProvider } from '../../../providers/imdb/imdb';
 
 @IonicPage()
 @Component({
@@ -10,21 +11,56 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class MovieInfoPage {
 
   public movie: any = {};
+  public isLoggedIn:boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _imdbProvider: ImdbProvider) {
-    
+  constructor(
+    private imdbProvider: ImdbProvider,
+    private navCtrl: NavController,
+    private loadingController:LoadingController,
+    private toastController: ToastController,
+    public navParams: NavParams,
+    public userProvider: UserProvider,    
+  ) {
+    this.isLoggedIn = false;
+
     let imdbid = this.navParams.get('imdbid');
-    // let movie = this._imdbProvider.getMovieById(imdbid).subscribe()
-    this._imdbProvider.getMovieById(imdbid).subscribe(
-      response => { this.movie = response['data']['movie'];},
-      err => {console.log(err); this.navCtrl.setRoot('HomePage')},
-      () => {console.log(this.movie)}
-    );
 
+    this.imdbProvider.getMovieById(imdbid).subscribe(
+      response => this.movie = response['data']['movie'],
+      err => { console.log(err); this.navCtrl.setRoot('HomePage') },
+      () => console.log()
+    );
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() {}
 
+  public addToFavourites(imdbId: string) {
+    let loading = this.loadingController.create({
+      content: `Adding ${this.movie.Title}`
+    });
+    loading.present();
+
+    console.log(imdbId);
+        
+    this.userProvider.addToFavourites(imdbId).subscribe(
+      response => {
+        if(!response['data']['success']){
+          this.sendToast(response['data']['message'])
+        }
+        else{
+    
+        }
+      },
+      err => console.log(err),
+      () => loading.dismiss()
+    )
+  }
+
+  private sendToast(message: string){
+    this.toastController.create({
+      message: message,
+      duration: 3000
+    }).present()
   }
 
 }
