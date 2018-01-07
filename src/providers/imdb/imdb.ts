@@ -6,22 +6,22 @@ import { GlobalsProvider } from '../globals/globals';
 @Injectable()
 export class ImdbProvider {
 
-  constructor(private _http: HttpClient) {
+  constructor(private http: HttpClient) {
     console.log('Hello ImdbProvider Provider');
   }
 
   public getMostPopularMovies():Observable<object> {
-    let url = `${GlobalsProvider.BASEURL}/imdb/popular`;  
-    return this._http.get(url);
+    let url = `${GlobalsProvider.BASEURL}/imdb/popular`;
+    return this.http.get(url);
   }
 
   public getMovieById(imdbid: string): Observable<object>{
     let url = `${GlobalsProvider.BASEURL}/imdb/title/${imdbid}`;
-    return this._http.get(url);
+    return this.http.get(url);
   }
 
   public getImdbSearch(query: string): Observable<object>{
     let url = `${GlobalsProvider.BASEURL}/imdb/search?q=${query}`;
-    return this._http.get(url);
+    return this.http.get(url);
   }
 }
