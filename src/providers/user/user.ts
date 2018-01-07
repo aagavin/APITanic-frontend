@@ -14,21 +14,24 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UserProvider {
 
-  private isLoggedIn: Subject<boolean>;
-  private token: String;
+  public isLoggedIn: Subject<boolean>;
+  public isLoggedInBool: boolean;
+  private token: string;
 
-  constructor(public http: HttpClient, private _storage: Storage, private _afAuth: AngularFireAuth) {
+  constructor(private http: HttpClient, private _afAuth: AngularFireAuth) {
     console.log('Hello UserProvider Provider');
     this.isLoggedIn = new Subject<boolean>();
     this.isLoggedIn.next(false);
-    this._afAuth.authState.subscribe(async (user: firebase.User) =>{
+    this._afAuth.authState.subscribe(async (user: firebase.User) => {
       try {
         this.token = await user.getIdToken();
         console.log(this.token);
         this.isLoggedIn.next(true);
+        this.isLoggedInBool = true;
       }
       catch (e) {
         this.isLoggedIn.next(false);
+        this.isLoggedInBool = false;
         this.token = '';
       }
     });
@@ -45,8 +48,8 @@ export class UserProvider {
   public get $token(): String { return this.token; }
 
   public get $isLoggedIn(): Observable<boolean> {
-		return this.isLoggedIn.asObservable();
-	}
+    return this.isLoggedIn.asObservable();
+  }
 
   /**
    * Creats a new user
@@ -66,8 +69,6 @@ export class UserProvider {
       let results = await this.http
         .post(`${GlobalsProvider.BASEURL}/user/create`, payload, { headers: new HttpHeaders().set('content-type', 'application/json') })
         .toPromise();
-      console.log(results);
-      await this._storage.set('token', results['data']['token']);
       return true;
     }
     catch (e) {
@@ -77,14 +78,44 @@ export class UserProvider {
 
   }
 
+  /**
+   * Adds an item as a favourite
+   * 
+   * @param {string} imdbId 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
+  public addToFavourites(imdbId: string): Observable<object> {
+    let url = `${GlobalsProvider.BASEURL}/favourites`;
+
+    let headersA = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('token', this.token);
+    let a = headersA;
+    console.log(a);
+    return this.http.post(url, {"imdbId": imdbId}, {headers: headersA,});
+  }
+
+  /**
+   * Sign in a user
+   * 
+   * @param {string} email 
+   * @param {string} password 
+   * @returns {Promise<any>} 
+   * @memberof UserProvider
+   */
   public async signIn(email: string, password: string): Promise<any> {
     let data = await this._afAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
+  /**
+   * Signs out a user
+   * 
+   * @returns {Promise<any>} 
+   * @memberof UserProvider
+   */
   public async signOut(): Promise<any> {
     let a = this._afAuth.auth.signOut();
   }
-
-  
 
 }
