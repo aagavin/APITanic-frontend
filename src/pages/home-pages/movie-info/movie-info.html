@@ -45,8 +45,12 @@
         <ion-icon name="film" item-left large></ion-icon>
         <h2>Genres</h2>
         <p text-wrap>
-          <span>{{movie.Genre}} </span>
+          <span>{{movie.Genre}}</span>
         </p>
+    </ion-item>
+
+    <ion-item *ngIf="userProvider.isLoggedInBool">
+      <button ion-button full (click)="addToFavourites(movie.imdbID)"><ion-icon name="bookmark"></ion-icon>&nbsp; Add to Favourites</button>
     </ion-item>
 
     <ion-row>
