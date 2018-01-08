@@ -49,7 +49,6 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-
 $toolbar-ios-background: #488aff;
 $toolbar-md-background: #488aff;
 $toolbar-wp-background: #488aff;
@@ -70,3 +69,11 @@ $toolbar-wp-background: #488aff;
 
 @import "roboto";
 @import "noto-sans";
+
+
+// custom theme
+// --------------------------------------------------
+
+ion-content {
+  background-color: #f4f4f7 !important;
+}
