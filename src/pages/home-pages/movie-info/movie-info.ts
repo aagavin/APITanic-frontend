@@ -48,7 +48,7 @@ export class MovieInfoPage {
           this.sendToast(response['data']['message'])
         }
         else{
-    
+          this.sendToast('Favourite added')
         }
       },
       err => console.log(err),
