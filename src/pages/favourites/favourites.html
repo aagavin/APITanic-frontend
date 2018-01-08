@@ -1,12 +1,31 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>favourites</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Favourites</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item-sliding *ngFor="let movie of favourites">
+      <button ion-item>
+        <ion-avatar item-start>
+          <img src="{{movie.Poster | imagesize: '75'}}">
+        </ion-avatar>
+        <h2>{{movie.Title}}</h2>
+        <p text-wrap>{{movie.Actors}}</p>
+      </button>
+      <ion-item-options side="right">
+        <button (click)="removeFavourite(movie.imdbID)" ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Remove
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
