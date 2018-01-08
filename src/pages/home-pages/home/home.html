@@ -10,8 +10,7 @@
 </ion-header>
 
 
-<ion-content>
-  <!-- *ngIf="movie.object.type == 'feature'" -->
+<ion-content padding>
   <ion-list>
     <div *ngFor="let movie of popularMovies; let i = index">
       <button ion-item (click)="movieClick(movie.imdbid)">
