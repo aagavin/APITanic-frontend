@@ -14,7 +14,6 @@
     </ion-list>
 
     <ion-list *ngIf="isLoggedIn">
-      <ion-list-header>User Actions</ion-list-header>
       <button menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)">
         <ion-icon name="{{p.icon}}"></ion-icon> {{p.title}}
       </button>
