@@ -14,7 +14,7 @@ import { UserProvider } from '../providers/user/user';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDeim5361AkMMUmmFfxumjpX2eaKeVNyew",

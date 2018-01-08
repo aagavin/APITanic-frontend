@@ -66,7 +66,7 @@ export class UserProvider {
     }
 
     try {
-      let results = await this.http
+      await this.http
         .post(`${GlobalsProvider.BASEURL}/user/create`, payload, { headers: new HttpHeaders().set('content-type', 'application/json') })
         .toPromise();
       return true;
@@ -120,7 +120,7 @@ export class UserProvider {
    * @memberof UserProvider
    */
   public async signIn(email: string, password: string): Promise<any> {
-    let data = await this._afAuth.auth.signInWithEmailAndPassword(email, password)
+    await this._afAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
   /**
@@ -130,7 +130,7 @@ export class UserProvider {
    * @memberof UserProvider
    */
   public async signOut(): Promise<any> {
-    let a = this._afAuth.auth.signOut();
+    return this._afAuth.auth.signOut();
   }
 
 }
