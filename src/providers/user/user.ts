@@ -2,7 +2,6 @@ import { SignUpUser } from '../../models/sign-up-user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GlobalsProvider } from '../globals/globals';
-import { Storage } from '@ionic/storage';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 // needed for tree shakeing
@@ -16,7 +15,9 @@ export class UserProvider {
 
   public isLoggedIn: Subject<boolean>;
   public isLoggedInBool: boolean;
+
   private token: string;
+  private readonly favouriteUrl = `${GlobalsProvider.BASEURL}/favourites`;
 
   constructor(private http: HttpClient, private _afAuth: AngularFireAuth) {
     console.log('Hello UserProvider Provider');
@@ -36,7 +37,6 @@ export class UserProvider {
       }
     });
   }
-
 
   /**
    * Getter for user token
@@ -78,6 +78,13 @@ export class UserProvider {
 
   }
 
+  public getAllFavourites(): Observable<object> {
+    // let url = `${GlobalsProvider.BASEURL}/favourites`;
+    let getFavHeaders = new HttpHeaders()
+      .set('token', this.token);
+    return this.http.get(this.favouriteUrl, { headers: getFavHeaders, })
+  }
+
   /**
    * Adds an item as a favourite
    * 
@@ -86,14 +93,22 @@ export class UserProvider {
    * @memberof UserProvider
    */
   public addToFavourites(imdbId: string): Observable<object> {
-    let url = `${GlobalsProvider.BASEURL}/favourites`;
+    // let url = `${GlobalsProvider.BASEURL}/favourites`;
 
-    let headersA = new HttpHeaders()
+    let addFavHeaders = new HttpHeaders()
       .set('content-type', 'application/json')
       .set('token', this.token);
-    let a = headersA;
-    console.log(a);
-    return this.http.post(url, {"imdbId": imdbId}, {headers: headersA,});
+    return this.http.post(this.favouriteUrl, { "imdbId": imdbId }, { headers: addFavHeaders, });
+  }
+
+
+  public removeFavourite(imdbId: string): Observable<object> {
+    // favouriteUrl
+    let deleteFavHeaders = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('imdbId', imdbId)
+      .set('token', this.token);
+    return this.http.delete(this.favouriteUrl, { headers: deleteFavHeaders})    
   }
 
   /**
