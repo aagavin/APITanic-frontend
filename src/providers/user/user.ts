@@ -18,6 +18,7 @@ export class UserProvider {
 
   private token: string;
   private readonly favouriteUrl = `${GlobalsProvider.BASEURL}/favourites`;
+  private readonly friendUrl = `${GlobalsProvider.BASEURL}/friends`
 
   constructor(private http: HttpClient, private _afAuth: AngularFireAuth) {
     console.log('Hello UserProvider Provider');
@@ -67,7 +68,7 @@ export class UserProvider {
 
     try {
       await this.http
-        .post(`${GlobalsProvider.BASEURL}/user/create`, payload, { headers: new HttpHeaders().set('content-type', 'application/json') })
+        .post(`${GlobalsProvider.BASEURL}/user/`, payload, { headers: new HttpHeaders().set('content-type', 'application/json') })
         .toPromise();
       return true;
     }
@@ -109,6 +110,12 @@ export class UserProvider {
       .set('imdbId', imdbId)
       .set('token', this.token);
     return this.http.delete(this.favouriteUrl, { headers: deleteFavHeaders})    
+  }
+
+  public searchFriends(): Observable<object>{
+    let friHeaders = new HttpHeaders()
+      .set('token', this.token);
+    return this.http.get(this.friendUrl, { headers: friHeaders})
   }
 
   /**
