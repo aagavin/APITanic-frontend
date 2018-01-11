@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Search Friends</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="search($event)"></ion-searchbar>
+  <ion-list>
+      <button ion-item *ngFor="let f of searchResults" (click)="friendClick(m['id'])">
+        <!-- <ion-avatar item-start>
+          <img src="{{m['i'][0] | imagesize: '75'}}">
+        </ion-avatar>
+        <h2 text-wrap>{{m['l']}}</h2>
+        <p text-wrap>{{m['s']}}</p> -->
+      </button>
+  </ion-list>
+</ion-content>
