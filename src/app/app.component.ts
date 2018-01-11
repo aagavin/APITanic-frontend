@@ -37,7 +37,8 @@ export class MyApp {
 
     this.loggedInPages = [
       {title: 'Favourites', component: 'FavouritesPage', icon: 'bookmark' },
-      {title: 'Search Friends', component: 'SearchFriendsPage', icon: 'contacts'}
+      {title: 'Search Friends', component: 'SearchFriendsPage', icon: 'add-circle'},
+      {title: 'View Friends', component: 'FriendsViewPage', icon: 'contacts' }
     ];
     this.signPages = [this.signInPage]
 

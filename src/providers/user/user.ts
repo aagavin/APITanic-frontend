@@ -112,6 +112,12 @@ export class UserProvider {
     return this.http.delete(this.favouriteUrl, { headers: deleteFavHeaders})    
   }
 
+  public getAllFriends(): Observable<object>{
+    let friHeaders = new HttpHeaders()
+      .set('token', this.token);
+    return this.http.get(this.friendUrl, { headers: friHeaders})
+  }
+
   public searchFriends(query: string): Observable<object>{
     const userUrl = `${GlobalsProvider.BASEURL}/user?q=${query}`;
     let friHeaders = new HttpHeaders()
@@ -124,6 +130,14 @@ export class UserProvider {
       .set('content-type', 'application/json')
       .set('token', this.token);
     return this.http.post(this.friendUrl, {"friend_id":uid }, {headers: friHeaders});
+  }
+
+  public removeFriend(friendId: string): Observable<object>{
+    let deleteFriHeaders = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('friend_id', friendId)
+      .set('token', this.token);
+    return this.http.delete(this.friendUrl, {headers: deleteFriHeaders});
   }
 
   /**
