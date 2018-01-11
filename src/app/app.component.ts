@@ -19,7 +19,7 @@ export class MyApp {
   loggedInPages: Array<{ title: string, component: any, icon: string}>;
   signInPage = { title: 'Sign In', component: 'SigninPage', icon: 'log-in'};
   signOutPage = { title: 'Sign Out', component: '', icon: 'log-in'};
-  favouritePage = {title: 'Favourite', component: 'FavouritesPage', icon: 'bookmark'};
+
 
   constructor(
     public platform: Platform,
@@ -36,7 +36,8 @@ export class MyApp {
     ];
 
     this.loggedInPages = [
-      {title: 'Favourites', component: 'FavouritesPage', icon: 'bookmark' }
+      {title: 'Favourites', component: 'FavouritesPage', icon: 'bookmark' },
+      {title: 'Search Friends', component: 'SearchFriendsPage', icon: 'contacts'}
     ];
     this.signPages = [this.signInPage]
 
