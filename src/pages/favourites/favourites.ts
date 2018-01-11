@@ -51,10 +51,12 @@ export class FavouritesPage {
 
     let observableList = [];
 
-    favourties.forEach(value => observableList.push(this.imdbProvider.getMovieById(value.imdbid)));
+    favourties.forEach(value => observableList.push(this.imdbProvider.getMovieById(value.imdb_id)));
 
     forkJoin(observableList).subscribe(results => {
-      this.favourites = results.map(result => result['data']['movie'])
+      this.favourites = results.map(result => result['data']['movie']),
+      err => console.log(err),
+      () => console.log(this.favourites)
     });
   }
 
