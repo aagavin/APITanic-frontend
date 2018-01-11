@@ -12,23 +12,31 @@ export class FriendsViewPage {
   public friends: Array<object>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
-    this.friends = [];
+    this.getFriends();
 
-    this.userProvider.getAllFriends().subscribe(
-      results => this.friends = results['data']['friends'],
-      err => console.log(err),
-      ()=> console.log(this.friends)
-    );
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FriendsViewPage');
   }
 
-  public removeFriend(friendId: string){
+  public removeFriend(friendId: string) {
     console.log(friendId);
-    this.userProvider.removeFavouri
+    this.userProvider.removeFriend(friendId).subscribe(
+      results => console.log(results),
+      err => console.log(err),
+      () =>  this.getFriends()
+    );
 
+  }
+
+  private getFriends() {
+    this.friends = [];
+    this.userProvider.getAllFriends().subscribe(
+      results => this.friends = results['data']['friends'],
+      err => console.log(err),
+      () => console.log(this.friends)
+    );
   }
 
 }
