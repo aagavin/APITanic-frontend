@@ -1,6 +1,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Search Friends</ion-title>
   </ion-navbar>
 
@@ -10,12 +13,15 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="search($event)"></ion-searchbar>
   <ion-list>
-      <button ion-item *ngFor="let f of searchResults" (click)="friendClick(m['id'])">
-        <!-- <ion-avatar item-start>
-          <img src="{{m['i'][0] | imagesize: '75'}}">
-        </ion-avatar>
-        <h2 text-wrap>{{m['l']}}</h2>
-        <p text-wrap>{{m['s']}}</p> -->
+    <button ion-item *ngFor="let f of searchResults" (click)="friendClick(f['uid'])">
+      <ion-avatar item-start>
+        <img src="./assets/imgs/person.svg" />
+      </ion-avatar>
+      <h2>{{f['display_name']}}</h2>
+      <h3>{{f['email']}}</h3>
+      <button ion-button item-end (click)="friendClick(f['uid'])">
+        <ion-icon name="person-add"></ion-icon>
       </button>
+    </button>
   </ion-list>
 </ion-content>
