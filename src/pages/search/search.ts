@@ -15,7 +15,7 @@ export class SearchPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _imdbProvider: ImdbProvider
+    private imdbProvider: ImdbProvider
   ) {
     this.searchQuery = '';
     this.searchResults = [];
@@ -27,7 +27,7 @@ export class SearchPage {
 
   public search(event: Event){
     if (this.searchQuery.length > 2) {
-      this._imdbProvider.getImdbSearch(this.searchQuery).subscribe(
+      this.imdbProvider.getImdbSearch(this.searchQuery).subscribe(
         data => this.searchResults = data['data']
       );      
     }
