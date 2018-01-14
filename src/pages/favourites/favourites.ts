@@ -21,7 +21,7 @@ export class FavouritesPage {
     this.getFavourites();
   }
 
-  private getFavourites(){
+  private getFavourites() {
     this.userProvider.getAllFavourites().subscribe(
       response => this.getMovieData(response['data']['favourites']),
       err => console.log(err),
@@ -35,7 +35,7 @@ export class FavouritesPage {
     this.userProvider.removeFavourite(imdbid).subscribe(
       response => console.log(response),
       err => console.log(err),
-      ()=> {console.log('done removeing favourite'); this.getFavourites()}
+      () => { console.log('done removeing favourite'); this.getFavourites() }
     )
 
   }
@@ -55,8 +55,8 @@ export class FavouritesPage {
 
     forkJoin(observableList).subscribe(results => {
       this.favourites = results.map(result => result['data']['movie']),
-      err => console.log(err),
-      () => console.log(this.favourites)
+        err => console.log(err),
+        () => console.log(this.favourites)
     });
   }
 
