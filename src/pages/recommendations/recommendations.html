@@ -1,12 +1,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>recommendations</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Recommendations</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item *ngFor="let movie of recommendations">
+      <ion-avatar item-start>
+        <img src="{{movie['Poster'] | imagesize: '75'}}">
+      </ion-avatar>
+      <h2 text-wrap>{{movie['Title']}}</h2>
+      <p text-wrap>{{movie['Actors']}}</p>
+      <button ion-button item-end (click)="addFavourite(movie.imdbID)">&nbsp;<ion-icon name="add-circle"></ion-icon>&nbsp;</button>
+    </ion-item>
+  </ion-list>
 </ion-content>
