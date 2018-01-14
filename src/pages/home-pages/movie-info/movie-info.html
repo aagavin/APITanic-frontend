@@ -17,14 +17,12 @@
       <p>Release date: {{movie.Released}}</p>
     </ion-item>
 
-    <img src="{{movie.Poster}}">
+    <img src="{{movie.Poster}}" imageViewer>
 
     <ion-card-content>
       <p>{{movie.Plot}}</p>
     </ion-card-content>
 
-
-    <!-- *ngFor="let director of movie.directors_summary" *ngIf="movie.directors_summary > 0" -->
     <ion-item *ngIf="movie.Director">
       <ion-icon name="videocam" item-left large></ion-icon>
       <h2>Director(s)</h2>
