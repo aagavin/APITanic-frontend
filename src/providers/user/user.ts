@@ -20,6 +20,12 @@ export class UserProvider {
   private readonly favouriteUrl = `${GlobalsProvider.BASEURL}/favourites`;
   private readonly friendUrl = `${GlobalsProvider.BASEURL}/friends`
 
+  /**
+   * Creates an instance of UserProvider.
+   * @param {HttpClient} http 
+   * @param {AngularFireAuth} _afAuth 
+   * @memberof UserProvider
+   */
   constructor(private http: HttpClient, private _afAuth: AngularFireAuth) {
     console.log('Hello UserProvider Provider');
     this.isLoggedIn = new Subject<boolean>();
@@ -48,6 +54,12 @@ export class UserProvider {
    */
   public get $token(): String { return this.token; }
 
+  /**
+   * 
+   * @readonly
+   * @type {Observable<boolean>}
+   * @memberof UserProvider
+   */
   public get $isLoggedIn(): Observable<boolean> {
     return this.isLoggedIn.asObservable();
   }
@@ -79,8 +91,13 @@ export class UserProvider {
 
   }
 
+  /**
+   * Get all Favourites
+   * 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
   public getAllFavourites(): Observable<object> {
-    // let url = `${GlobalsProvider.BASEURL}/favourites`;
     let getFavHeaders = new HttpHeaders()
       .set('token', this.token);
     return this.http.get(this.favouriteUrl, { headers: getFavHeaders, })
@@ -102,7 +119,13 @@ export class UserProvider {
     return this.http.post(this.favouriteUrl, { "imdbId": imdbId }, { headers: addFavHeaders, });
   }
 
-
+  /**
+   * Remove a Favourite
+   * 
+   * @param {string} imdbId 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
   public removeFavourite(imdbId: string): Observable<object> {
     // favouriteUrl
     let deleteFavHeaders = new HttpHeaders()
@@ -112,12 +135,25 @@ export class UserProvider {
     return this.http.delete(this.favouriteUrl, { headers: deleteFavHeaders})    
   }
 
+  /**
+   * Get all Friends
+   * 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
   public getAllFriends(): Observable<object>{
     let friHeaders = new HttpHeaders()
       .set('token', this.token);
     return this.http.get(this.friendUrl, { headers: friHeaders})
   }
 
+  /**
+   * Search Friends
+   * 
+   * @param {string} query 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
   public searchFriends(query: string): Observable<object>{
     const userUrl = `${GlobalsProvider.BASEURL}/user?q=${query}`;
     let friHeaders = new HttpHeaders()
@@ -125,6 +161,13 @@ export class UserProvider {
     return this.http.get(userUrl, { headers: friHeaders});
   }
 
+  /**
+   * Add a friend 
+   * 
+   * @param {string} uid 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
   public addFriend(uid: string): Observable<object>{
     let friHeaders = new HttpHeaders()
       .set('content-type', 'application/json')
@@ -132,6 +175,20 @@ export class UserProvider {
     return this.http.post(this.friendUrl, {"friend_id":uid }, {headers: friHeaders});
   }
 
+  public getRecommendations(): Observable<object>{
+    let url = `${GlobalsProvider.BASEURL}/recommendations`;
+    let recHeaders = new HttpHeaders()
+      .set('token', this.token);
+    return this.http.get(url, { headers: recHeaders});
+  }
+
+  /**
+   * Remove a friend
+   * 
+   * @param {string} friendId 
+   * @returns {Observable<object>} 
+   * @memberof UserProvider
+   */
   public removeFriend(friendId: string): Observable<object>{
     let deleteFriHeaders = new HttpHeaders()
       .set('content-type', 'application/json')
