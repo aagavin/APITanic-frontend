@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+
 import { GlobalsProvider } from '../providers/globals/globals';
 import { UserProvider } from '../providers/user/user';
 
@@ -32,6 +34,7 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     HttpClientModule,
+    IonicImageViewerModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
