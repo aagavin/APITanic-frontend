@@ -53,7 +53,7 @@ export class MovieInfoPage {
       },
       err => console.log(err),
       () => loading.dismiss()
-    )
+    );
   }
 
   private sendToast(message: string){
